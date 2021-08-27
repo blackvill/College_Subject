@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>이니스프리</title>
+</head>
+
+<style>
+    #nav 
+    { /* 메뉴 전체 영역에 대한 스타일 */
+        list-style-type: none; /* 불릿 기호 없앰 */
+        height: 45px; /* 내비게이션 높이 */
+        padding: 6px 7px; /* 위아래 6px, 좌우 7px씩 안여백 */
+        margin: 0; /* 바깥 여백 없음 */
+        background: #50AF49; /* 내비게이션 전체 배경색 */
+        border-radius: 1.5em; /* 모서리 둥글게 */
+    }
+    
+    #nav li 
+    { /* 메뉴 각 항목에 대한 스타일 */
+            float: right; /* 왼쪽부터 표시 */
+            position: relative; /* 순서대로 표시 */
+            margin: 5px 10px; /* 위아래 5px, 좌우 10px씩 바깥 여백 */
+            padding: 0; /* 안여백 없음 */
+    }
+
+    #nav li a 
+    { /* 메뉴 항목에서도 링크에 대한 스타일 */
+                display: block; /* 영역을 만듦 */
+                font-family: "굴림"; /* 글꼴 */
+                font-weight: 600; /* 진하게 */
+                font-size: 1em; /* 글자크기 */
+                padding: 10px 20px; /* 안여백 */
+                color: #e7e5e5; /* 링크 글자색 */
+                text-decoration: none; /* 밑줄 없앰 */
+                margin: 0; /* 바깥 여백 없음 */
+                border-radius: 1.4em; /* 링크의 모서리를 둥글게 */
+                text-shadow: 0 1px 1px rgba(0,0,0,.3); /* 텍스트 그림자 */
+    }
+
+    #nav li:hover > a { /* 메뉴 항목 위로 마우스 올렸을 때 스타일 */
+                background: #AAD34A; /* 배경색 */
+                color: #444; /* 글자색 */
+                text-shadow: 0 1px 1px rgba(255,255,255,1); /* 글자 그림자 */
+                border-radius: 1.4em; /* 모서리 둥글게 */
+                -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2); /* 메뉴 항목에 그림자 */
+                -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2); /* 메뉴 항목에 그림자 */
+    }
+
+    #nav ul { /* 서브 메뉴 영역에 대한 스타일 */
+            margin: 0; /* 서브 메뉴 바깥 여백 없음 */
+            padding: 0; /* 서브 메뉴 안여백 없음 */
+            list-style: none; /* 목록의 불릿 없앰 */
+            position: absolute; /* 고정 위치에 표시 */
+            left: 0; /* 부모 요소와 left 좌표 값은 같게 */
+            top: 45px; /* 부모 요소로부터 아래로 45px 밑에 표시 */
+            width: 160px; /* 서브 메뉴 너비 */
+            background: #BCE55C; /* 서브 메뉴 배경색 */
+            border: 1px solid #E9FF7E; /* 서브 메뉴 테두리를 그림 */
+            border-radius: 8px; /* 모서리를 둥글게 처리 */
+            -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3); /* 서브 메뉴 전체에 그림자 효과 추가 */
+            -moz-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+            box-shadow: 0 1px 3px rgba(0,0,0,.3);
+            opacity: 0; /* 투명하게 표시 - 결국 평소엔 안보임 */
+    }
+
+    #nav li:hover ul { /* 메인 메뉴 위로 마우스 오버했을 때 서브 메뉴 스타일 */
+            opacity: 1; /* 서브 메뉴 불투명해짐 -> 화면에 보임 */
+    }
+
+    #nav ul li { /* 서브 메뉴 각 항목의 스타일 */
+            float: none; /* 세로로 표시 */
+            margin: 0; /* 바깥 여백 없음 */
+            padding: 0; /* 안 여백 없음 */
+    }
+
+    #nav ul a { /* 서브 메뉴 항목의 링크 스타일 */
+            font-weight: normal; /* 진하기 보통으로 */
+            text-shadow: 0 1px 0 #fff; /* 글자 그림자 */
+            color: #333; /* 글자색 */
+    }
+
+    #nav ul li:hover a { /* 서브 메뉴 항목 위로 마우스 오버했을 때의 스타일 */
+            background: #E9FF7E; /* 배경색 */
+            color: #333; /* 글자색 */
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1); /* 글자 그림자 */
+            border-radius: 0; /* 모서리 둥글게 처리 안함 */
+    }
+
+    #nav ul li:first-child > a { /* 서브 메뉴 첫번째 항목의 스타일 */
+            -webkit-border-top-left-radius: 9px; /* 왼쪽 윗부분 둥글게 */
+            -moz-border-radius-topleft: 9x; /* 오른쪽 윗부분 둥글게 */
+            -webkit-border-top-right-radius: 9px;
+            -moz-border-radius-topright: 9x;
+    }
+
+    #nav ul li:last-child > a { /* 서브 메뉴 마지막 항목의 스타일 */
+            -webkit-border-bottom-left-radius: 9px; /* 왼쪽 아랫부분 둥글게 */
+            -moz-border-radius-bottomleft: 9x; /* 오른쪽 아랫부분 둥글게 */
+            -webkit-border-bottom-right-radius: 9px;
+            -moz-border-radius-bottomright: 9x;            
+    }
+    #Head
+    {
+        position:relative;
+        max-width:100%;
+        height:50px;
+         z-index: 1;
+    }
+
+    #Banner {
+        position: relative;
+        z-index: 4;
+        margin:auto;
+    }
+    #menu
+    {        
+        position:relative;
+        padding-top:10em;
+        z-index: 3;
+    }
+    #all
+    {
+        margin:10;
+        padding:20px;     
+    }
+    img
+    {
+        max-width:100%;
+        position:relative;
+        z-index: 2;
+    }
+    #moviepadding
+    {
+        position: relative;
+        overflow: hidden;
+    }
+    #movie
+    {            
+        position:absolute;
+        left:3%;
+        top:90%;
+        width:40%;
+    }    
+    #foot1                   
+    {
+        max-width: 100%; 
+        height: auto;
+        z-index: 10;
+        position: relative;
+    }
+    #foot1 table
+    {
+        position: absolute;
+        bottom:5px;
+        left:30px;
+    }
+    .table
+    {
+        border:1px solid red;
+        width:100%;
+    }
+    .table-top
+    {
+        height:22px;
+        float:left;
+    }
+    </style>
+
+
+<body>
+    <article>
+        <header>
+            <div id="Head">
+                <img src="../Img/BG_sky.gif" />
+            </div>
+            <div id="Banner" align="center">
+                <a href="Project.html"><img src="Banner.png" align="left" /></a>
+                <img src="../Img/BL07_53_0.png" align="right" />
+                <table align="center">
+                    <tr>
+                        <th><img src="../Img/header_quick_bestseller.png" /></th>
+                        <th><img src="../Img/header_quick_ecoshop.png" /></th>
+                        <th><img src="../Img/header_quick_mensstore.png" /></th>
+                        <th><img src="../Img/header_quick_newproduct.png" /></th>
+                    </tr>
+                    <tr>
+                        <th colspan="3"><img src="../Img/BG_search.png" /></th>
+                        <th><img src="../Img/btn_search.png" /></th>
+                    </tr>
+                </table>
+            </div>
+            <div id="menu">
+                <ul id="nav">
+                    <li>
+                        <a href="QNA.html"> 고객센터</a>
+                    </li>
+                    <li>
+                        <a href="#">제품 소개</a>
+                        <ul>
+                            <li><a href="Skin.html">스킨 케어</a></li>
+                            <li><a href="Mask.html">팩/마스크</a></li>
+                            <li><a href="FaceMake.html">페이스 메이크업</a></li>
+                            <li><a href="colorMake.html">컬러 메이크업</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">브랜드 소개</a>
+                        <ul>
+                            <li><a href="BlandIntroduce.html">이니스프리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div id="all">
+            <div id="img">
+                <img src="../Img/MainImg.jpeg" />
+            </div>
+            <div id="movie">
+                <embed src="https://www.youtube.com/embed/ocEv2wxqrqs" width="360" height="240"/>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div id="foot1">
+            <img src="../Img/Footer.jpg" />
+
+            <table width='95%'height="100px">
+                <tr>
+                    <td rowspan="4"><img src="../Img/footer_logo.png" width='100%'></td>
+                    <td><img src="../Img/footer_menu1.png" width='80%' height="22px"></td>
+                    <td><img src="../Img/footer_menu2.png" width='80%' height="22px"></td>
+                    <td><img src="../Img/footer_menu6.png" width='80%' height="22px"></td>
+                    <td><img src="../Img/footer_menu3.png" width='80%' height="22px"></td>
+                    <td><img src="../Img/footer_menu4.png" width='80%' height="22px"></td>
+                    <td><img src="../Img/footer_menu5.png" width='80%' height="22px"></td>
+                </tr>    
+                <tr>
+                    <td rowspan="2" colspan="5"><img src="../Img/footer_address20141020.png" width='80%'></td>
+                    <td rowspan="3" ><img src="../Img/footer_escro.png" width='80%'></td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td colspan="5"><img src="../Img/footer_copyright.png" width='80%' height="22px"></td>
+                </tr>
+            </table>
+        </div>
+    </footer>
+</body> 
+</html >
